@@ -1,0 +1,55 @@
+version: "3"
+
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:5.5.60
+    restart: always
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/conf/mysqld.conf:/etc/mysql/mysql.conf.d/mysqld.cnf
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+
+  redis:
+    image: 'redis:4.0'
+    restart: always
+    hostname: redis
+    container_name: redis
+    ports:
+      - '6379:6379'
+    command: redis-server --requirepass 123456
+
+  mongo:
+    image: mongo:3.2
+    restart: always
+    container_name: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    volumes:
+      - ./mongodb/data/db:/data/db
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    container_name: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: 123456
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    container_name: rabbitmq
+    hostname: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: "test"
+      RABBITMQ_DEFAULT_PASS: "123456"
+    ports:
+      - "5673:5672"
+      - "15673:15672"
