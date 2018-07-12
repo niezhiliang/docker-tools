@@ -52,4 +52,4 @@ services:
       RABBITMQ_DEFAULT_PASS: "123456"
     ports:
       - "5673:5672"
-      - "15673:15672"
+      - "15672:15672"
