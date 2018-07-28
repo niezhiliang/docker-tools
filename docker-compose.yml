@@ -59,9 +59,9 @@ services:
     restart: always
     container_name: ngnix
     hostname: ngnix
-  ports:
-    - "80:80"
-      volumes:
-        - ./conf/vhosts:/etc/nginx/conf.d
-        - ./logs:/var/log/nginx
-        - ./html:usr/local/html
+    ports:
+      - "80:80"
+    volumes:
+      - ./conf/vhosts:/etc/nginx/conf.d
+      - ./logs:/var/log/nginx
+      - ./html:usr/local/html
