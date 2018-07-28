@@ -53,3 +53,15 @@ services:
     ports:
       - "5673:5672"
       - "15672:15672"
+
+  ngnix:
+    image: ngnix:1.14
+    restart: always
+    container_name: ngnix
+    hostname: ngnix
+  ports:
+    - "80:80"
+      volumes:
+        - ./conf/vhosts:/etc/nginx/conf.d
+        - ./logs:/var/log/nginx
+        - ./html:usr/local/html
